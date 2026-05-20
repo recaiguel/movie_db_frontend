@@ -1,0 +1,136 @@
+* {
+    font-size: 16px;
+    margin: 0;
+    font-family: monospace, Arial, Helvetica, sans-serif;
+    color: aliceblue;
+}
+
+body {
+    background: #000000;
+}
+
+.menü {
+    background-color: #131a26;
+    border-bottom: 2px solid #1e293b;
+}
+
+p {
+    margin: 0;
+    font-size: 12px;
+}
+
+.navbar {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 15px 0;
+}
+
+.logo {
+    color: #e910c5;
+    font-size: 150%;
+    font-weight: 900;
+    margin-bottom: 15px;
+}
+
+.nav-links {
+    display: flex;
+    gap: 30px;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    align-items: center;
+    justify-content: center;
+}
+
+.nav-links a {
+    text-decoration: none;      /* Entfernt den Unterstrich */
+    color: #e910c5;           /* Ändert die Schriftfarbe auf Weiß */
+}
+
+.nav-links a:hover {
+    color: #ffffff;           /* Ändert die farbe bei darüber hovern */
+}
+
+.nav-links input {
+    color: #e910c5;
+    background-color: #334155;   /* Ein passendes, helleres Graublau */
+    border: none;                   /* Entfernt den Standard-Rahmen */
+    padding: 8px 12px;              /* Gibt dem Txt im Feld etwas Luft zum Aten */
+    margin: 4px;
+    border-radius: 4px;             /* Rundet die Ecken des Feldes leicht ab */
+    width: 350px;
+}
+
+.nav-links input:focus {
+    outline: none;                  /* Entfernt die standardmäßige blaue line des Browsers */
+    background-color: #475569;    /* Mach den Hintergrund etwas heller beim reinklicken */
+    box-shadow: 0 0 5px #deff9a;  /* Erzeugt einen feinen, neongrnen Leuchteffekt */
+}
+
+.movie-grid {
+    display: grid;                  /* Erstellt automatisch so viele Spalten, wie in dem Platz passen, mindestens^200px breit */
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;                      /* Abstand zwischen den FIlm-Karten */
+    padding: 20px;
+}
+
+.movie-card {
+    background-color: #1e293b;     /* Dunkelblau, passend zur Navbar */
+    padding: 15px;                   /* Innenabstand für den Inhalt */
+    border-radius: 8px;              /* Abgerudnete Ecken*/
+    text-align: center;              /* Zentriert Test und Poster-Icon */
+}
+
+.movie-card h3 {
+    font-size: 18px;
+    font-weight: bold;
+    color: #ffffff;
+    margin-bottom: 8px;
+}
+
+.movie-poster {
+    background-color: #0b0f19;
+    height: 250px;                      /* feste Höhe im typischen Kino-Plakat-Format */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 64px;                 /* Großes Platzhalter Icon als Emoji*/
+    border-radius: 6px;              /* abgerundete Ecken */
+    margin-bottom: 10px;             /* Abstand nach unten zum Titel */
+    border: 1px solid #334155;      /* Dezenter Rahmen */
+}
+
+.layout-container {
+    display: grid;                   /* Links die Filme mit nimmt den restlichen platz mit 1fr, rechts (Sidebar) bekommt eine feste, angenehme breite von 280px */
+    grid-template-columns: 1fr 280px;
+    gap: 30px;                       /* Abstand zwischen Content und Sidebar */
+    padding: 20px;
+
+}
+
+.sidebar {
+    background-color: #1e293b;
+    padding: 20px;
+    border-radius: 8px;
+    height: fit-content;             /* Die Sidebar wird nur so hoch wie ihr Inhalt */
+}
+
+.sidebar ul {
+    list-style: none;
+    padding: 0;
+}
+
+.sidebar li {
+    margin-bottom: 10px;
+}
+
+.sidebar a {
+    color: #94a3b8;
+    text-decoration: none;
+}
+
+.sidebar a:hover {
+    color: #e910c5
+}
+
