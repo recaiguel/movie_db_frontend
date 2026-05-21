@@ -134,3 +134,28 @@ p {
     color: #e910c5
 }
 
+
+/* Styling für die Film-Detailseite */
+.back-link {
+    color: #e910c5;
+    text-decoration: none;
+    display: inline-block;
+    margin-bottom: 20px;
+}
+
+.back-link:hover {
+    color: white;
+    text-decoration: none;
+}
+
+.movie-detail-box {
+    background-color: #1c1c1c;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.movie-large-poster {
+    font-size: 5rem;
+    margin: 20px 0;
+}

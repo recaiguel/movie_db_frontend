@@ -28,10 +28,27 @@ try {
                 filme.titel,
                 filme.erscheinungsjahr,
                 filme.laufzeit_min,
-                GROUP_CONCAT(genre.bezeichnung SEPARATOR ', ') AS genres
+                fsk.mindest_alter AS fsk_alter,
+                GROUP_CONCAT(DISTINCT genre.bezeichnung SEPARATOR ', ') AS genres,
+                GROUP_CONCAT(DISTINCT studio.studio_name SEPARATOR ', ') AS studios,
+                GROUP_CONCAT(DISTINCT land.land SEPARATOR ', ') AS laender,
+                GROUP_CONCAT(DISTINCT m.bezeichnung SEPARATOR ', ') AS medien,
+                GROUP_CONCAT(DISTINCT CONCAT(r.vorname, ' ', r.nachname)SEPARATOR ', ') AS regisseure,
+                GROUP_CONCAT(DISTINCT CONCAT(s.vorname, ' ', s.nachname, ' (', fs.rollen_name, ')') SEPARATOR ', ') AS schauspieler
             FROM filme
+            LEFT JOIN fsk ON filme.fskID = fsk.id
             LEFT JOIN film_genre ON filme.id = film_genre.filmeID
             LEFT JOIN genre ON film_genre.genreID = genre.id
+            LEFT JOIN film_studio ON filme.id = film_studio.filmeID
+            LEFT JOIN studio ON film_studio.studioID = studio.id
+            LEFT JOIN film_produktionsland ON filme.id = film_produktionsland.filmeID
+            LEFT JOIN produktionsland land ON film_produktionsland.landID = land.id
+            LEFT JOIN film_medien ON filme.id = film_medien.filmeID
+            LEFT JOIN medien AS m ON film_medien.medienID = m.id
+            LEFT JOIN film_regie ON filme.id = film_regie.filmeID
+            LEFT JOIN regie AS r ON film_regie.regieID = r.id
+            LEFT JOIN film_schauspieler AS fs ON filme.id = fs.filmeID
+            LEFT JOIN schauspieler AS s ON fs.schauspielerID = s.id
             WHERE filme.id = ?
             GROUP BY filme.id";
     
@@ -67,9 +84,17 @@ try {
             <div class="movie-large-poster" >🎞️</div>
 
             <div class="movie-info-specs">
-                <p><strong>Erscheinungsjahr:</strong> <?= $film['erscheinungsjahr'] ?></p>
-                <p><strong>Laufzeit:</strong><?= $film['laufzeit_min'] ?>Minuten</p>
-                <p><strong>Genres</strong><?= htmlspecialchars($film['genres']) ?></p>
+                <p><strong>Erscheinungsjahr: </strong> <?= $film['erscheinungsjahr'] ?> </p>
+                <p><strong>Laufzeit: </strong> <?= $film['laufzeit_min'] ?> Minuten</p>
+                <p><strong>FSK: </strong> Ab <?= $film['fsk_alter'] ?> Jahren</p>
+                <p><strong>Genres: </strong> <?= htmlspecialchars($film['genres']) ?> </p>
+                <p><strong>Regie: </strong> <?= htmlspecialchars($film['regisseure']) ?> </p>           <!-- regie -->
+                <p><strong>Studios: </strong> <?= htmlspecialchars($film['studios']) ?> </p>            <!-- studio -->
+                <p><strong>Produktionsland: </strong> <?= htmlspecialchars($film['laender']) ?> </p>    <!-- produktionsland -->
+                <p><strong>Medien Formate: </strong> <?= htmlspecialchars($film['medien']) ?></p>       <!-- verfügbare Medien -->
+                <br>
+                <h3>Besetzung (Schauspieler)</h3>
+                <h3><?= htmlspecialchars($film['schauspieler']) ?></h3>
             </div>
         </div>
     </div>
