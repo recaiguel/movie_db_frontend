@@ -1,16 +1,14 @@
 <?php
+
+// Verbindung zur Datenbank
+include './db.php';
+
 // Headers setzen, damit der Browser JSON akzeptiert und CORS erlaubt ist
 header("Acces-Control-Allow-Origin: *");
 header("Content-Type: application/json; charset=UTF-8");
 
-// Verbindung zur Datenbank
-$host = 'localhost';
-$dbname = 'filmdb';
-$user = 'avenger';
-$password = '3ndG4m3';
 
 try {
-    $pdo = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8mb4", $user, $password);
 
     // Die neue SQL-Abfrage mit GROUP_CONCAT für die Genres
     $sql = "SELECT

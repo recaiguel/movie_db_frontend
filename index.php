@@ -4,7 +4,7 @@
 
     <div class="layout-container">
         <!-- Hauptcontent -->
-        <div class="Content">
+        <div class="content">
             <h2>Filme</h2>
             
             <div class="movie-grid"></div>
