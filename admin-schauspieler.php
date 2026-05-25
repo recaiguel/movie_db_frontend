@@ -44,6 +44,8 @@ if (isset($_POST['submit_actor'])) {
     <title>FilmDB-Admin</title>
 </head>
 <body>
-    
+    <form method="POST" action="">
+        
+    </form>
 </body>
 </html>
