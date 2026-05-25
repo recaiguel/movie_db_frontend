@@ -174,11 +174,11 @@ $schauspieler_list = $query_schauspieler->fetchAll(2);
 ?>
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="de">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>adminDB</title>
+    <title>FilmDB-Admin</title>
 </head>
 <body>
     <form method="POST" action="">
