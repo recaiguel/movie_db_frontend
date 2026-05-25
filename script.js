@@ -1,6 +1,6 @@
 let alleFilme = [];
 
-// 1. Wir holen uns das Grid-Element aus dem HTML, in das die Filme geladen werden sollen
+// Wir holen uns das Grid-Element aus dem HTML, in das die Filme geladen werden sollen
 const movieGrid = document.querySelector(".movie-grid");
 
 const searchInput = document.getElementById("search");
