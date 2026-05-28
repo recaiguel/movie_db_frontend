@@ -1,9 +1,10 @@
 <?php 
 
 // Verbindung zur Datenbank
-include './db.php'; 
+include '../db.php'; 
 
 if (isset($_POST['submit_film'])) {
+    echo "Button wurde erkannt!";
     try {
                 
         // Daten aus dem Formular sicher in Variablen speichern
@@ -67,18 +68,6 @@ if (isset($_POST['submit_film'])) {
             }
         }
 
-        // Regie in der Zwischentabelle verknüpen
-        if (isset($_POST['regisseure']) && is_array($_POST['regisseure'])) {
-            $sql_regie = "INSERT INTO film_regie (filmeID, regieID) VALUES (:film_id, :regie_id)";
-            $stmt_regie = $pdo->prepare($sql_regie);
-
-            foreach ($_POST['regisseure'] as $regie_id) {
-                $stmt_regie->execute([
-                    ':film_id' => $neue_film_id,
-                    ':regie_id' => $regie_id
-                ]);
-            }
-        }
 
         // Produktionsland in der Zwischentabelle verknüpfen
         if(isset($_POST['produktionsland']) && is_array($_POST['produktionsland'])) {
@@ -93,35 +82,14 @@ if (isset($_POST['submit_film'])) {
             }
         }
 
-        // HIER SIND SIE! Schauspieler und Rollennamen verknüpfen (Tabelle 'film_schauspieler')
-        if (isset($_POST['schauspieler_ids']) && is_array($_POST['schauspieler_ids'])) {
-            $sql_schauspieler = "INSERT INTO film_schauspieler (filmeID, schauspielerID, rollen_name) 
-                                 VALUES (:film_id, :schauspieler_id, :rollen_name)";
-            $stmt_schauspieler = $pdo->prepare($sql_schauspieler);
-            
-            // Wir nutzen den Index ($index), um ID und Rollennamen aus den beiden parallelen Arrays korrekt zu paaren
-            foreach ($_POST['schauspieler_ids'] as $index => $schauspieler_id) {
-                // Wenn in der Zeile kein Schauspieler ausgewählt wurde (leeres Dropdown), überspringen wir sie
-                if (empty($schauspieler_id)) {
-                    continue;
-                }
-
-                // Den passenden Rollennamen über die exakt gleiche Zeilennummer (Index) holen
-                $rollen_name = $_POST['rollen_namen'][$index];
-
-                $stmt_schauspieler->execute([
-                    ':film_id' => $neue_film_id,
-                    ':schauspieler_id' => $schauspieler_id,
-                    ':rollen_name' => $rollen_name
-                ]);
-            }
-        }
-
-        echo "<p style='color: green;'>Film erfolgreich gespeichert!</p>";
+        // Seite neuladen ohne dass das Speichern des Films nochmal ausgeführt wird
+        header("Location: admin-filme.php?saved=true");
+        exit;    
 
     }   catch (PDOException $e) {
             die("Fehler beim speicher des Films: " . $e->getMessage());
         }
+
 }
 
 
@@ -155,16 +123,6 @@ $sql = "SELECT * FROM medien";
 $query_medien = $pdo->query($sql);
 $medien_list = $query_medien->fetchAll(2);
 
-//Regisseure holen
-$sql = "SELECT * FROM regie";
-$query_regie = $pdo->query($sql);
-$regie_list = $query_regie->fetchAll(2);
-
-// Schauspieler holen
-$sql = "SELECT * FROM schauspieler";
-$query_schauspieler = $pdo->query($sql);
-$schauspieler_list = $query_schauspieler->fetchAll(2);
-
 
 } catch (PDOException $e) {
     // Falls die Datenbank mal schluckauf hat, fangen wir den Fehler hier ab
@@ -181,8 +139,36 @@ $schauspieler_list = $query_schauspieler->fetchAll(2);
     <title>FilmDB-Admin</title>
 </head>
 <body>
-    <form method="POST" action="">
-    <select name="fsk_id">
+
+    <?php include './admin-nav.php' ?>
+
+    <?php 
+        // isset($_GET['saved']): Prüft ob das Wort "saved" in der URL existiert
+        // $_GET['saved'] === 'true': Prüft ob der Wert genau den Text 'true' entspricht
+        if (isset($_GET['saved']) && $_GET['saved'] === 'true'): ?>
+        <div id="success-popup">
+            Erfolgreich gespeichert
+        </div>
+    <?php endif; ?>
+
+    <h2>Filme hinzufügen</h2>
+    
+    <form method="POST" action="" autocomplete="off">
+
+    <p><strong>Titel:</strong></p>
+    <input type="text" name="titel" id="titel" required>
+    <br><br>
+
+    <p><strong>Erscheinungsjahr:</strong></p>
+    <input type="number" name="erscheinungsjahr" id="" required>
+    <br><br>
+
+    <p><strong>Laufzeit:</strong></p>
+    <input type="number" name="laufzeit_min" id="" required>
+    <br><br>
+
+    <p><strong>Altersfreigabe:</strong></p>
+    <select name="fsk_id" required>
         <?php foreach ($fsk_list as $fsk): ?>
             <option value="<?= $fsk['id'] ?>">Ab <?= $fsk['mindest_alter'] ?> Jahren</option>
         <?php endforeach; ?>
@@ -199,7 +185,7 @@ $schauspieler_list = $query_schauspieler->fetchAll(2);
     <br><br>
 
     <label for="studio">Studio:</label><br>
-    <select name="studio_id" id="studio">
+    <select name="studio_id" id="studio" required>
         <?php foreach ($studio_list as $studio): ?>
             <option value="<?= $studio['id'] ?>"> <?= $studio['studio_name'] ?></option>
         <?php endforeach; ?>
@@ -207,7 +193,7 @@ $schauspieler_list = $query_schauspieler->fetchAll(2);
     <br><br>
     
     <label for="produktionsland"><strong>Produktionsland:</strong></label><br>
-    <select name="produktionsland[]" id="produktionsland" multiple size="5">
+    <select name="produktionsland[]" id="produktionsland" multiple size="5" required>
         <?php foreach ($produktionsland_list as $produktionsland): ?>
             <option value="<?= $produktionsland['id'] ?>"> <?= $produktionsland['land'] ?></option>
         <?php endforeach; ?>
@@ -224,39 +210,10 @@ $schauspieler_list = $query_schauspieler->fetchAll(2);
     <?php endforeach; ?>
     <br><br>
 
-    <label for="regisseure">🎬 <strong>Regie auswählen (Mehrfachauswahl möglich):</strong></label><br>
-    <select name="regisseure[]" id="regisseure" multiple size="5">
-        <?php foreach ($regie_list as $regie): ?>
-            <option value="<?= $regie['id'] ?>">
-                <?= htmlspecialchars($regie['vorname'] . ' ' . $regie['nachname']) ?>
-            </option>
-        <?php endforeach; ?>
-    </select>
-    <br><small>❗Halte die <em>Strg-Taste</em> (Windows) oder <em>Cmd-Taste</em> (Mac) gedrückt, um mehrere Regisseure auszuwählen</small>
-    <br><br>
-
-    <p><strong>Besetzung (Schauspieler & Rollen):</strong></p>
-    <div id="schauspieler-container">
-        <div class="schauspieler-row" style="margin-bottom: 10px;">
-            <select name="schauspieler_ids[]">
-            <option value="">-- Schauspieler wählen --</option>
-            <?php foreach ($schauspieler_list as $schauspieler): ?>
-                <option value="<?= $schauspieler['id'] ?>">
-                    <?= htmlspecialchars($schauspieler['vorname'] . ' ' . $schauspieler['nachname']) ?>
-                </option>
-            <?php endforeach; ?>
-            </select>
-
-            <input type="text" name="rollen_namen[]" placeholder="Rollenname (z.B Jack Sparrow)">
-        </div>
-    </div>
-    
-    <button type="button" id="add-schauspieler">+ Weiteren Schauspieler Hinzufügen</button>
-    <br><br>
-    <button type="submit">Absenden</button>
+    <button type="submit" name="submit_film">Speichern</button>
     </form>
 
-    <script src="./admin-script.js"></script>
+    <script src="./relation-script.js"></script>
 
 </body>
 </html>

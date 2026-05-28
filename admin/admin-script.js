@@ -20,7 +20,8 @@ addButton.addEventListener('click', function() {
     // Das Dropdown der neuen Zeile in den Container einfügen
     const selectField = newRow.querySelector('select');
     if (selectField) {
-        selectField.selectIndex = 0;
+        selectField.selectedIndex = 0;
+        selectField.removeAttribute('required');
     }
 
     // Die kopierte und gelehrte Zeiöe in den Container einfügen
