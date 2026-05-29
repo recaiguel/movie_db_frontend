@@ -49,7 +49,8 @@ $regie_liste = $query_regie->fetchAll(2);    // Ergebnis wird in Variable $regie
 }
 ?>
 
-    <?php include './admin-nav.php' ?>
+<?php include './admin-header.php'; ?>
+<?php include './admin-nav.php'; ?>
 
     <div class="main-content">
     <?php 

@@ -128,7 +128,7 @@ $medien_list = $query_medien->fetchAll(2);
 }
 
 ?>
-
+    <?php include './admin-header.php'; ?>
     <?php include './admin-nav.php' ?>
 
     <div class="main-content">

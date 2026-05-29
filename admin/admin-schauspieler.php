@@ -38,7 +38,8 @@ if (isset($_POST['submit_actor'])) {
 }
 ?>
 
-    <?php include './admin-nav.php' ?>
+<?php include './admin-header.php'; ?>
+<?php include './admin-nav.php'; ?>
 
     <div class="main-content">
     <?php 

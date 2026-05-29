@@ -125,3 +125,129 @@ label {
         padding: 22px;
     };
 }
+
+/* ==========================================================================
+   ZUSATZ FÜR DAS DASHBOARD (Tabellen & CRUD-Aktionen)
+   Abgestimmt auf das bestehende Flexbox- & Kartendesign
+   ========================================================================== */
+
+/* Container, der die einzelnen Tabellen-Karten umschließt */
+.dashboard-tables-container {
+    width: 100%;
+    max-width: 1200px;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;         /* Abstand zwischen den Tabellen */
+    margin-top: 20px;
+    margin-bottom: 40px;
+}
+
+/* Tabellen-Karte – nutzt exakt dein Design der Formular-Karten */
+.table-card {
+    background: #ffffff;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    width: 100%;
+}
+
+/* Überschrift innerhalb der Tabellen-Karten */
+.table-card h3 {
+    color: #1e293b;
+    margin-bottom: 20px;
+    font-size: 1.3rem;
+    font-weight: 600;
+    border-bottom: 2px solid #f4f6f9;
+    padding-bottom: 10px;
+}
+
+/* Sorgt dafür, dass Tabellen auf kleinen Bildschirmen scrollbar werden */
+.table-responsive {
+    width: 100%;
+    overflow-x: auto;
+}
+
+/* Tabellen-Grundstruktur */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+    font-size: 0.95rem;
+}
+
+/* Tabellenkopf – nutzt dein dezentes Hellgrau */
+th {
+    background-color: #f9fafb;
+    color: #4a5568;
+    font-weight: 600;
+    padding: 14px 16px;
+    border-bottom: 2px solid #d1d5db;
+    text-transform: uppercase;
+    font-size: 0.8rem;
+    letter-spacing: 0.05em;
+}
+
+/* Tabellenzellen */
+td {
+    padding: 14px 16px;
+    border-bottom: 1px solid #f4f6f9;
+    color: #111827;
+    vertical-align: middle;
+}
+
+/* Subtiler Hover-Effekt für die Zeilen */
+tr:hover td {
+    background-color: #f9fafb;
+}
+
+/* Styling für leere Tabellen */
+.empty-cell {
+    text-align: center;
+    color: #9ca3af;
+    padding: 30px !important;
+    font-style: italic;
+}
+
+/* Spalte für die Buttons (Bearbeiten / Löschen) */
+.actions-cell {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+/* Basis-Styling für die Aktions-Buttons (Angelehnt an deine Input-Abrundungen) */
+.btn-edit, .btn-delete {
+    text-decoration: none;
+    font-size: 0.85rem;
+    font-weight: 600;
+    padding: 8px 14px;
+    border-radius: 8px; /* Passt zu deinen Formular-Elementen */
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: inline-block;
+}
+
+/* Bearbeiten-Button (Dezentes Blau, wechselt zu Vollfarbe beim Hover) */
+.btn-edit {
+    background-color: #eff6ff;
+    color: #2563eb;
+    border: 1px solid #bfdbfe;
+}
+
+.btn-edit:hover {
+    background-color: #2563eb;
+    color: #ffffff;
+}
+
+/* Löschen-Button (Dezentes Rot, wechselt zu Vollfarbe beim Hover) */
+.btn-delete {
+    background-color: #fef2f2;
+    color: #dc2626;
+    border: 1px solid #fecaca;
+}
+
+.btn-delete:hover {
+    background-color: #dc2626;
+    color: #ffffff;
+}
