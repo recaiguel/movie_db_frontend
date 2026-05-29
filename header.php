@@ -16,7 +16,7 @@
                 </li>
                 <li><a href="./index.php">Home</a></li>
                 <li><a href="./schauspieler.php">Schauspieler</a></li>
-                <li><a href="./genres.php">Genres</a></li>
+
             </ul>
         </nav>
     </div>
