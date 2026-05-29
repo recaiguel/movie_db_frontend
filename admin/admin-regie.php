@@ -38,17 +38,9 @@ if (isset($_POST['submit_regie'])) {
 }
 ?>
 
-<!DOCTYPE html>
-<html lang="de">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FilmDB-Admin</title>
-</head>
-<body>
-
     <?php include './admin-nav.php' ?>
 
+    <div class="main-content">
     <?php 
         // isset($_GET['saved']): Prüft, ob das Wort "saved" in der URL existiert
         // $_GET['saved'] === 'true': Prüft, ob der Wert genau dem Text 'true' entspricht
@@ -64,11 +56,11 @@ if (isset($_POST['submit_regie'])) {
     <form method="POST" action="" autocomplete="off">
         <p><strong>Vorname:</strong></p>
         <input type="text" name="vorname" id="" placeholder="Christopher">
-        <br>
+        <br><br>
         
         <p><strong>Nachname:</strong></p>
         <input type="text" name="nachname" id="" placeholder="Nolan">
-        <br>
+        <br><br>
 
         <p><strong>Geburtsdatum:</strong></p>
         <input type="date" name="geburtsdatum" id="">
@@ -80,7 +72,7 @@ if (isset($_POST['submit_regie'])) {
             <option value="männlich">Männlich</option>
             <option value="weiblich">Weiblich</option>
         </select>
-        <br>
+        <br><br>
 
         <p><strong>Nationalität:</strong></p>
         <select name="nationalitaet" id=""> 
@@ -96,15 +88,15 @@ if (isset($_POST['submit_regie'])) {
             <option value="Spanien">Spanien</option>
             <option value="Italien">Italien</option>
         </select>
-        <br>
+        <br><br>
 
         <button name="submit_regie" type="submit">Speichern</button>
         <br>
 
     </form>
 
+    </div>
     <script src="./relation-script.js"></script>
 
-    
 </body>
 </html>

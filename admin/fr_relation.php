@@ -49,17 +49,9 @@ $regie_liste = $query_regie->fetchAll(2);    // Ergebnis wird in Variable $regie
 }
 ?>
 
-<!DOCTYPE html>
-<html lang="de">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FilmDB-Admin</title>
-</head>
-<body>
-
     <?php include './admin-nav.php' ?>
 
+    <div class="main-content">
     <?php 
         // isset($_GET['saved']): Prüft, ob das Wort "saved" in der URL existiert
         // $_GET['saved'] === 'true': Prüft, ob der Wert genau dem Text 'true' entspricht
@@ -89,6 +81,7 @@ $regie_liste = $query_regie->fetchAll(2);    // Ergebnis wird in Variable $regie
             </select>
             </div>
         </div>
+        <br><br>
 
         <div id="regisseur-container">
             <div class="regisseur-row">
@@ -105,11 +98,13 @@ $regie_liste = $query_regie->fetchAll(2);    // Ergebnis wird in Variable $regie
 
             </div>
         </div>
+        <br><br>
 
         <button name="submit_filmRegie" type="submit">Speichern</button>
         <br><br>
     </form>
 
+    </div>
     <script src="./relation-script.js"></script>
 
 </body>

@@ -79,18 +79,10 @@ $rollen_liste = $query_rollen->fetchAll(2);
     die("Datenbank: " . $e->getMessage());    
 }
 ?>
-
-<!DOCTYPE html>
-<html lang="de">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FilmDB-Admin</title>
-</head>
-<body>
     
     <?php include './admin-nav.php' ?>
 
+    <div class="main-content">
     <?php 
         // isset($_GET['saved']): Prüft, ob das Wort "saved" in der URL existiert
         // $_GET['saved'] === 'true': Prüft, ob der Wert genau dem Text 'true' entspricht
@@ -120,6 +112,7 @@ $rollen_liste = $query_rollen->fetchAll(2);
             </select>
             </div>
         </div>
+        <br>
 
         <div id="schauspieler-container">
             <div class="schauspieler-row">
@@ -135,14 +128,15 @@ $rollen_liste = $query_rollen->fetchAll(2);
             </select>
             </div>
         </div>
+        <br>
 
         <div id="rollenname-container">
             <div class="Rollenname-row">
             <p><strong>Rollenname:</strong></p>
             <input type="text" name="rollen_name" id="rollen_name" placeholder="Bruce Wayne" required>
-            <br><br>
             </div>
         </div>
+        <br>
 
         <div id="gage-container">
             <div class="gagen-row">
@@ -150,6 +144,7 @@ $rollen_liste = $query_rollen->fetchAll(2);
                 <input type="number" name="gage" id="gage" placeholder="20000000" >
             </div>
         </div>
+        <br>
 
         <div id="rollenID-container">
             <div class="rollenID-row">
@@ -162,14 +157,16 @@ $rollen_liste = $query_rollen->fetchAll(2);
                         </option>
                     <?php endforeach; ?>
                 </select>
-
             </div>
         </div>
+        <br>
 
         <button name="submit_rolle" type="submit">Speichern</button>
-        <br><br>
+        <br>
     </form>
 
+    </div>
     <script src="./relation-script.js"></script>
+
 </body>
 </html>

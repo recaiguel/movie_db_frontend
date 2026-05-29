@@ -80,19 +80,17 @@ if (isset($_POST['submit_film'])) {
                     ':land_id' => $land_id
                 ]);
             }
-        }
+        }   
 
-        // Seite neuladen ohne dass das Speichern des Films nochmal ausgeführt wird
-        header("Location: admin-filme.php?saved=true");
-        exit;    
-
+    // Seite neuladen ohne dass das Speichern des Films nochmal ausgeführt wird
+    header("Location: admin-filme.php?saved=true");
+    exit; 
+    
     }   catch (PDOException $e) {
             die("Fehler beim speicher des Films: " . $e->getMessage());
         }
 
 }
-
-
 
 try {
 
@@ -131,17 +129,9 @@ $medien_list = $query_medien->fetchAll(2);
 
 ?>
 
-<!DOCTYPE html>
-<html lang="de">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FilmDB-Admin</title>
-</head>
-<body>
-
     <?php include './admin-nav.php' ?>
 
+    <div class="main-content">
     <?php 
         // isset($_GET['saved']): Prüft ob das Wort "saved" in der URL existiert
         // $_GET['saved'] === 'true': Prüft ob der Wert genau den Text 'true' entspricht
@@ -155,64 +145,65 @@ $medien_list = $query_medien->fetchAll(2);
     
     <form method="POST" action="" autocomplete="off">
 
-    <p><strong>Titel:</strong></p>
-    <input type="text" name="titel" id="titel" required>
-    <br><br>
+        <p><strong>Titel:</strong></p>
+        <input type="text" name="titel" id="titel" required>
+        <br><br>
 
-    <p><strong>Erscheinungsjahr:</strong></p>
-    <input type="number" name="erscheinungsjahr" id="" required>
-    <br><br>
+        <p><strong>Erscheinungsjahr:</strong></p>
+        <input type="number" name="erscheinungsjahr" id="" required>
+        <br><br>
 
-    <p><strong>Laufzeit:</strong></p>
-    <input type="number" name="laufzeit_min" id="" required>
-    <br><br>
+        <p><strong>Laufzeit:</strong></p>
+        <input type="number" name="laufzeit_min" id="" required>
+        <br><br>
 
-    <p><strong>Altersfreigabe:</strong></p>
-    <select name="fsk_id" required>
-        <?php foreach ($fsk_list as $fsk): ?>
-            <option value="<?= $fsk['id'] ?>">Ab <?= $fsk['mindest_alter'] ?> Jahren</option>
+        <p><strong>Altersfreigabe:</strong></p>
+        <select name="fsk_id" required>
+            <?php foreach ($fsk_list as $fsk): ?>
+                <option value="<?= $fsk['id'] ?>">Ab <?= $fsk['mindest_alter'] ?> Jahren</option>
+            <?php endforeach; ?>
+        </select>
+        <br><br>
+
+        <p><strong>Genres ausählen:</strong></p>
+        <?php foreach ($genre_list as $genre): ?>
+            <label>
+                <input type="checkbox" name="genres[]" value="<?= $genre['id'] ?>">
+                <?= htmlspecialchars($genre['bezeichnung']) ?>
+            </label><br>
         <?php endforeach; ?>
-    </select>
-    <br><br>
+        <br><br>
 
-    <p><strong>Genres ausählen:</strong></p>
-    <?php foreach ($genre_list as $genre): ?>
-        <label>
-            <input type="checkbox" name="genres[]" value="<?= $genre['id'] ?>">
-            <?= htmlspecialchars($genre['bezeichnung']) ?>
-        </label><br>
-    <?php endforeach; ?>
-    <br><br>
+        <label for="studio">Studio:</label><br>
+        <select name="studio_id" id="studio" required>
+            <?php foreach ($studio_list as $studio): ?>
+                <option value="<?= $studio['id'] ?>"> <?= $studio['studio_name'] ?></option>
+            <?php endforeach; ?>
+        </select> 
+        <br><br>
+        
+        <p><strong>Produktionsland:</strong></p>           
+            <?php foreach ($produktionsland_list as $produktionsland): ?>
+                <label>
+                    <input type="checkbox" name="produktionsland[]" value="<?= $produktionsland['id'] ?>">
+                    <?= htmlspecialchars($produktionsland['land']) ?>
+                </label><br>
+            <?php endforeach; ?> 
+        <br><br>
 
-    <label for="studio">Studio:</label><br>
-    <select name="studio_id" id="studio" required>
-        <?php foreach ($studio_list as $studio): ?>
-            <option value="<?= $studio['id'] ?>"> <?= $studio['studio_name'] ?></option>
+        <p><strong>Medien auswählen:</strong></p>
+        <?php foreach ($medien_list as $medien): ?>
+            <label>
+                <input type="checkbox" name="medien[]" value="<?= $medien['id'] ?>">
+                <?= htmlspecialchars($medien['bezeichnung']) ?>
+            </label><br>
         <?php endforeach; ?>
-    </select> 
-    <br><br>
-    
-    <label for="produktionsland"><strong>Produktionsland:</strong></label><br>
-    <select name="produktionsland[]" id="produktionsland" multiple size="5" required>
-        <?php foreach ($produktionsland_list as $produktionsland): ?>
-            <option value="<?= $produktionsland['id'] ?>"> <?= $produktionsland['land'] ?></option>
-        <?php endforeach; ?>
-    </select> 
-    <br><small>❗Halte die <em>Strg-Taste</em> (Windows) oder <em>Cmd-Taste</em> (Mac) gedrückt, um mehrere Länder auszuwählen</small>
-    <br><br>
+        <br><br>
 
-    <p><strong>Medien auswählen:</strong></p>
-    <?php foreach ($medien_list as $medien): ?>
-        <label>
-            <input type="checkbox" name="medien[]" value="<?= $medien['id'] ?>">
-            <?= htmlspecialchars($medien['bezeichnung']) ?>
-        </label><br>
-    <?php endforeach; ?>
-    <br><br>
-
-    <button type="submit" name="submit_film">Speichern</button>
+        <button type="submit" name="submit_film">Speichern</button>
     </form>
 
+    </div>
     <script src="./relation-script.js"></script>
 
 </body>

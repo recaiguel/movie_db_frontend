@@ -1,0 +1,127 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    background-color: #f4f6f9;          /* Dezentes Hellgrau */
+    color: #333333;                   /* Dunkles Grau für Text */
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+h2 {
+    color: #1e293b;                   /* Dunkles Blau für Überschriften */
+    margin: 20px 0;
+    font-weight: 600;
+}
+
+.admin-nav {
+    width: 100%;
+    max-width: 1200px;
+    background-color: #ffffff;
+    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.05);
+    padding: 24px 20px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    border-radius: 8px;
+    justify-content: center;
+}
+
+.admin-nav a {
+    display: inline-block;
+    padding: 12px 16px;
+    color: #4a5568;
+    text-decoration: none;
+    border-radius: 8px;
+    font-weight: 500;
+    transition: background-color 0.2s ease, color 0.2s, transform 0.2s ease;
+}
+
+.admin-nav a:hover {
+    background-color: #edf2f7;       /* Hellblau für Hover-Effekt */
+    color: #2b6cb0;                  /* Dunkles Blau für Text beim Hover */
+    transform: translateX(2px);
+}
+
+.main-content {
+    flex: 1;
+    width: 100%;
+    max-width: 900px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Die weiße "Karte" für das Formular */
+form {
+    background: #ffffff;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    width: 100%;
+}
+
+form p {
+    margin-bottom: 8px;
+    font-weight: 600;
+}
+
+input[type="text"],
+input[type="number"],
+select {
+    width: 100%;
+    padding: 12px 14px;
+    border: 1px solid #d1d5db;
+    border-radius: 10px;
+    background: #f9fafb;
+    color: #111827;
+    font-size: 1rem;
+    margin-bottom: 16px;
+}
+
+input[type="checkbox"] {
+    margin-right: 8px;
+}
+
+label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.98rem;
+    color: #1f2937;
+    margin-bottom: 8px;
+}
+
+#success-popup {
+    width: 100%;
+    max-width: 900px;
+    margin-bottom: 16px;
+    padding: 14px 18px;
+    background: #edf7ed;
+    color: #164d1e;
+    border-radius: 10px;
+    text-align: center;
+}
+
+@media (max-width: 760px) {
+    .admin-nav {
+        padding: 18px 14px;
+        justify-content: center;
+    }
+
+    .admin-nav a {
+        flex: 1 1 100%;
+        text-align: center;
+    }
+
+    form {
+        padding: 22px;
+    };
+}
